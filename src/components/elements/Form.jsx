@@ -1,16 +1,15 @@
 import { useRef, useState } from 'react'
 import { formFields } from '../../constants/Form'
-import Input from '../ui/Input'
-import TextArea from '../ui/TextArea'
+import Field from '../ui/Field'
 
 export default function Form() {
 	const formRef = useRef(null)
-	const [formKey, setFormKey] = useState(0)
 	const [submitting, setSubmitting] = useState(false)
+	const [error, setError] = useState('')
 
 	const handleSubmit = async e => {
 		e.preventDefault()
-
+		setError('')
 		const form = formRef.current
 		if (!form) return
 
@@ -18,9 +17,9 @@ export default function Form() {
 		const data = Object.fromEntries(fd.entries())
 
 		const payload = {
-			title: data.name || 'Untitled',
-			content: data.description,
-			author: data.name || 'Anonymous',
+			title: (data.name || '').trim() || 'Untitled',
+			author: (data.author || '').trim() || 'Anonymous',
+			content: (data.description || '').trim(),
 		}
 
 		try {
@@ -30,23 +29,12 @@ export default function Form() {
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(payload),
 			})
-
-			if (!res.ok) {
-				const txt = await res.text().catch(() => '')
-				throw new Error(txt || `HTTP ${res.status}`)
-			}
-
-			const created = await res.json()
-
-			form?.reset()
-			setFormKey(k => k + 1)
-
-			setTimeout(() => {
-				alert('✅ Post created: ' + created.title)
-			}, 0)
+			if (!res.ok) throw new Error(await res.text())
+			form.reset()
+			alert('Success')
 		} catch (err) {
-			console.error(err)
-			alert('❌ ' + err.message)
+			setError(err.message || 'Failed to create post')
+			alert('catch error')
 		} finally {
 			setSubmitting(false)
 		}
@@ -55,56 +43,25 @@ export default function Form() {
 	return (
 		<form
 			ref={formRef}
-			key={formKey}
 			onSubmit={handleSubmit}
-			autoComplete='off'
-			className='
-        mx-auto md:max-w-2xl
-        my-6 rounded-2xl border border-slate-200
-        bg-white/70 backdrop-blur p-6
-        shadow-lg ring-1 ring-black/5
-      '
+			className='space-y-4 md:max-w-1/2 mx-auto bg-white p-4 rounded-md shadow-2xs'
 		>
-			<h2
-				className='mb-4 text-2xl font-extrabold tracking-tight
-                     bg-clip-text text-transparent
-                     bg-gradient-to-r from-violet-700 via-fuchsia-600 to-rose-500'
-			>
-				Fill form
-			</h2>
+			{formFields.map(field => (
+				<Field key={field.id} {...field} />
+			))}
 
-			<ul className='flex flex-col gap-4'>
-				{formFields.map(field => {
-					const Component = field.input ? Input : TextArea
-					return (
-						<li key={field.id}>
-							<Component
-								id={field.id}
-								label={field.label}
-								type={field.type}
-								placeholder={field.placeholder}
-								autoComplete='off'
-								required
-							/>
-						</li>
-					)
-				})}
-			</ul>
+			{error && (
+				<p className='rounded-md border border-rose-200 bg-rose-50 p-3 text-rose-700'>
+					{error}
+				</p>
+			)}
 
 			<button
 				type='submit'
 				disabled={submitting}
-				className={`
-          mt-5 inline-flex items-center justify-center
-          rounded-xl px-4 py-2.5 font-medium text-white
-          bg-violet-600 shadow-md transition
-          hover:bg-violet-500 focus-visible:outline-none
-          focus-visible:ring-2 focus-visible:ring-violet-400
-          disabled:opacity-50 disabled:cursor-not-allowed
-          ${submitting ? 'animate-pulse' : ''}
-        `}
+				className='rounded-xl bg-violet-600 px-4 py-2 font-medium text-white disabled:opacity-60'
 			>
-				{submitting ? 'Saving…' : 'SUBMIT'}
+				{submitting ? 'Saving…' : 'Submit'}
 			</button>
 		</form>
 	)

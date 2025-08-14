@@ -1,9 +1,16 @@
 export const formFields = [
 	{
 		type: 'text',
-		id: 'name',
+		id: 'author',
 		label: 'Enter your name',
 		placeholder: 'Enter your name',
+		input: true,
+	},
+	{
+		type: 'text',
+		id: 'name',
+		label: 'Enter title',
+		placeholder: 'Enter your title',
 		input: true,
 	},
 	{

@@ -1,12 +1,54 @@
-# React + Vite
+Blog Post Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A blog management app built with the MERN stack where you can create, edit, search, and delete posts.
+I made this project to practice React, Tailwind CSS, and working with REST APIs in a clean, responsive CRUD application.
 
-Currently, two official plugins are available:
+🛠 Tools Used
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+MongoDB — database
 
-## Expanding the ESLint configuration
+Express.js — backend framework
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+React.js — frontend library
+
+Node.js — runtime environment
+
+Postman — testing API endpoints
+
+📚 Questions & Answers
+
+What is the MERN stack?
+MERN stands for MongoDB, Express.js, React.js, and Node.js — a set of technologies used together to build full-stack JavaScript applications.
+
+What is a REST API?
+A REST API (Representational State Transfer API) is a way for applications to communicate using standard HTTP methods like GET, POST, PUT, and DELETE.
+
+What does useEffect do in React?
+useEffect lets you run side effects in function components — like fetching data, setting up subscriptions, or updating the DOM.
+
+How do you send data to backend from React?
+You can use fetch or libraries like Axios to send HTTP requests (usually POST) with data in the request body.
+
+What is MongoDB used for?
+MongoDB is a NoSQL database used to store and manage data in a flexible, JSON-like format.
+
+What is the difference between GET and POST?
+
+GET: retrieves data from the server
+
+POST: sends data to the server to create or update resources
+
+How do you create routes in Express?
+By using methods like:
+
+app.get('/path', handler)
+app.post('/path', handler)
+
+What is a component in React?
+A component is a reusable piece of UI in React, defined as a function or class that returns JSX.
+
+How does React Router work?
+React Router maps URL paths to specific components, letting you create multiple views in a single-page application without reloading the page.
+
+How do you connect MongoDB with Node.js?
+Use the MongoDB driver

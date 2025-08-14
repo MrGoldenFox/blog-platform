@@ -1,6 +1,5 @@
 import Post from '../models/Post.js'
 
-// GET /api/posts
 export async function getPosts(req, res, next) {
 	try {
 		const posts = await Post.find().sort({ createdAt: -1 })
@@ -10,7 +9,6 @@ export async function getPosts(req, res, next) {
 	}
 }
 
-// GET /api/posts/:id
 export async function getPost(req, res, next) {
 	try {
 		const post = await Post.findById(req.params.id)
@@ -21,8 +19,6 @@ export async function getPost(req, res, next) {
 	}
 }
 
-// POST /api/posts
-// Принимаем как {title, content, author}, так и {name, description}
 export async function createPost(req, res, next) {
 	try {
 		const { title, content, author, name, description } = req.body
@@ -49,8 +45,6 @@ export async function createPost(req, res, next) {
 	}
 }
 
-// PUT /api/posts/:id
-// Тоже поддерживаем оба формата полей
 export async function updatePost(req, res, next) {
 	try {
 		const { title, content, author, name, description } = req.body
@@ -72,12 +66,11 @@ export async function updatePost(req, res, next) {
 	}
 }
 
-// DELETE /api/posts/:id
 export async function deletePost(req, res, next) {
 	try {
 		const post = await Post.findByIdAndDelete(req.params.id)
 		if (!post) return res.status(404).json({ message: 'Post not found' })
-		res.status(204).send() // No Content
+		res.status(204).send()
 	} catch (e) {
 		next(e)
 	}
