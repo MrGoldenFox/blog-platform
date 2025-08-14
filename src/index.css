@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #222222;
+}
+
+p {
+	color: #444444;
+}
+
+h1 {
+	@apply font-extrabold text-[10vw] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-center;
+}
+
+h2 {
+	@apply font-semibold text-[7vw] sm:text-3xl lg:text-4xl;
+}
+
+button,
+a {
+	cursor: pointer;
+}
